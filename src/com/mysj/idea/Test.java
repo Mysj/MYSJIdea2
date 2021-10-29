@@ -24,13 +24,16 @@ public class Test {
         System.out.println(linked.getSize());*/
         //使用RWLinkedPageTool工具来进行操作
         //RWLinkedPageTool rwLinkedPageTool = new RWLinkedPageTool();
-        Linked linkedSlcOne =new Linked();
-        BufferedReader bufferedReader = ReadFile("D:\\实验\\徐徐实验\\实验数据\\qsort_small\\qsort_small_end.txt");
+        Linked[] linked =new Linked[3];
+        linked[0] = new Linked();
+        linked[1] = new Linked();
+        linked[2] = new Linked();
+        BufferedReader bufferedReader = ReadFile("D:\\实验\\徐徐实验\\实验数据\\qsort_samll\\qsort_small_end.txt");
 
-        RWLinkedPage(linkedSlcOne,bufferedReader);
+        RWLinkedPage(linked,bufferedReader);
 
-        System.out.println(linkedSlcOne.getSize());
-        linkedSlcOne.getPageSize();
+        System.out.println(linked[0].getSize());
+        linked[0].getPageSize();
 
     }
 }
