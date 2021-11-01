@@ -28,54 +28,98 @@ public class RWLinkedPageTool {
         int period = 1;//周期
         while(null != (strLine = bufferedReader.readLine())) {
             //第一个周期，先初始化链表、页面等信息，进行第一个周期内的读写
-            if (period == 1){
-                //每行有三个数据，分别为 读写、大小、地址
-                String[] s = strLine.split(" ");
-                if(s.length!=3) continue;
-                //1.当链表为空时，先存放一页，往该地址中放变量
-                if (linked[0] == null){
-                    Page page = new Page();
-                    page.put(s[2],4);//设定每个地址变量为4bit
-                    linked[0].addLast(page);
-                    continue;
-                }
+            //第二个周期，继续往第一条链表中操作，第二个周期结束时再进行页面移动
 
-                int subscript = linked[0].contains(s[2]);
-                //2.当链表中没有该地址时，找一页存放
-                if (subscript == 0){//意味着链表中没有该地址
-                    boolean bool = linked[0].add(s[2], 4);
-                    //如果链表中存放失败、页数（大小）不够，则新建一个页来存放
-                    if (bool == false){
-                        Page page = new Page();
-                        page.put(s[2],4);
-                        linked[0].addLast(page);
-                    }
-                }else {     //3.在链表中找到该地址
-                    if ("Write".equals(s[0])){
-                        linked[0].write(s[2],4,subscript);
-                    }
-                    if ("Read".equals(s[0])){
-                        linked[0].read(s[2],4,subscript);
-                    }
-                }
+            //每行有三个数据，分别为 读写、大小、地址
+            String[] s = strLine.split(" ");
 
-            }else {
-                System.out.println("这是第 " + period + " 个周期！");
-
+            if(s.length!=3) continue;
+            int size_j = Integer.parseInt(s[1]);
+            //1.当链表为空时，先存放一页，往该地址中放变量
+            if (linked[0] == null){
+                Page page = new Page();
+                page.put(s[2],size_j);//设定每个地址变量为4bit
+                linked[0].addLast(page);
+                continue;
             }
+            int subscript1 = linked[0].contains(s[2]);
+            int subscript2 = linked[1].contains(s[2]);
+            int subscript3 = linked[2].contains(s[2]);
+            //2.当链表中没有该地址时，找一页存放
+            if (subscript1 == 0 && subscript2 == 0 && subscript3 == 0){//意味着链表中没有该地址
+                boolean bool = linked[0].add(s[2], size_j);
+                //如果链表中存放失败、页数（大小）不够，则新建一个页来存放
+                if (bool == false){
+                    Page page = new Page();
+                    page.put(s[2],size_j);
+                    linked[0].addLast(page);
+                    //System.out.println("新建一个页面存放在链表一中");
+                }
+            }else if (subscript1 != 0){     //3.在链表中找到该地址
+                if ("Write".equals(s[0])){
+                    linked[0].write(s[2],size_j,subscript1);
+                }
+                if ("Read".equals(s[0])){
+                    linked[0].read(s[2],size_j,subscript1);
+                }
+                //System.out.println("在链表一中找到该变量");
+            }else if (subscript2 != 0){
+                if ("Write".equals(s[0])){
+                    linked[1].write(s[2],size_j,subscript2);
+                }
+                if ("Read".equals(s[0])){
+                    linked[1].read(s[2],size_j,subscript2);
+                }
+                //System.out.println("在链表二中找到该变量");
+            }else if (subscript3 != 0){
+                if ("Write".equals(s[0])){
+                    linked[2].write(s[2],size_j,subscript3);
+                }
+                if ("Read".equals(s[0])){
+                    linked[2].read(s[2],size_j,subscript3);
+                }
+                //System.out.println("在链表三中找到该变量");
+            }
+
             x++;
-            if (x % 2000 == 0){
+
+            if (x % 2000000 == 0){
+
+                System.out.println("linked[0]有：" + linked[0].getSize() + " 个页面");
+                System.out.println("linked[1]有：" + linked[1].getSize() + " 个页面");
+                System.out.println("linked[2]有：" + linked[2].getSize() + " 个页面");
+                System.out.println("-------第----- " + period + " -----个周期结束--------");
+                //当周期二结束，把one中flag为false的页面移动到two中，并重置所有的flag
+                if (period == 2){
+                    System.out.println(linked[0].getSize());
+                    linked[0].movePageLinKedAtoB("linked[0]","linked[1]",linked[1],false);
+                }
+                if(period == 3){
+                    linked[1].movePageLinKedAtoB("linked[1]","linked[2]",linked[2],false);
+                    linked[0].movePageLinKedAtoB("linked[0]","linked[1]",linked[1],false);
+                    linked[1].movePageLinKedAtoB("linked[1]","linked[0]",linked[0],true);
+                }else if (period > 3){
+                    //a.先把two、three链表中为true的迁移到one中
+                    //b.two中为false的迁移到three中
+                    //c.再把one中为false的迁移到two中
+                    linked[2].movePageLinKedAtoB("linked[2]","linked[0]",linked[0],true);
+                    linked[1].movePageLinKedAtoB("linked[1]","linked[0]",linked[0],true);
+                    linked[1].movePageLinKedAtoB("linked[1]","linked[2]",linked[2],false);
+                    linked[0].movePageLinKedAtoB("linked[0]","linked[1]",linked[1],false);
+                }
+
                 //每个周期开始时，需要进行
                 period++;
                 linked[0].resetCycleAccess();
                 linked[1].resetCycleAccess();
                 linked[2].resetCycleAccess();
+                System.out.println("linked[0]有：" + linked[0].getSize() + " 个页面");
+                System.out.println("linked[1]有：" + linked[1].getSize() + " 个页面");
+                System.out.println("linked[2]有：" + linked[2].getSize() + " 个页面");
+                System.out.println("==============================================");
             }
 
         }
     }
 
-    public void RWPage(){
-
-    }
 }

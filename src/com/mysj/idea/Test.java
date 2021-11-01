@@ -28,8 +28,9 @@ public class Test {
         linked[0] = new Linked();
         linked[1] = new Linked();
         linked[2] = new Linked();
-        BufferedReader bufferedReader = ReadFile("D:\\实验\\徐徐实验\\实验数据\\qsort_samll\\qsort_small_end.txt");
+        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\qsort\\qsort_large.txt");
 
+        //开始运行
         RWLinkedPage(linked,bufferedReader);
 
         System.out.println(linked[0].getSize());

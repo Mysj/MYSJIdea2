@@ -51,7 +51,7 @@ public class Page {
      */
     public boolean put(String add,int size){
 
-        if (this.size + size <=4*1024){
+        if (this.size + size <=4*1024*8){
             map.put(add, new Integer[]{size,0,1});
             this.size += size;
             accessNumber++;

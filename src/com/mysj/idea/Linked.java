@@ -50,7 +50,7 @@ public class Linked {
         Node cur = this.head;
         int i = 1;
         while (cur != null){
-            if (cur.t.getSize() + size <= 4*1024){
+            if (cur.t.getSize() + size <= 4*1024*8){
                 boolean b = cur.t.put(add, size);
                 if (!b){
                     System.out.println("编号 "+i+" 存放失败！！！");
@@ -64,6 +64,48 @@ public class Linked {
     }
 
 
+    /**
+     * 把A链表中的冷页面迁移到B链表中
+     * @param linkedB
+     */
+    public Boolean movePageLinKedAtoB(String name1,String name2,Linked linkedB,Boolean bool){
+
+        int count = 0;
+        if (linkedB == null) {
+            return false;
+        }
+        Node cur = this.head;
+
+
+        for (long i = 0;i < this.getSize();i++){
+            Page page = cur.t;
+            if (page.getFlag() == bool){
+                linkedB.addLast(page);
+                this.remove(page);
+                count++;
+            }
+            cur = cur.next;
+        }
+        /*while (this != null){
+
+            if (page.getFlag() == bool){
+                linkedB.addLast(page);
+                this.remove(page);
+                count++;
+            }
+            cur = cur.next;
+
+        }*/
+
+        System.out.println(name1 + " 向 " + name2 + "迁移  " + count + "  个页面");
+        return true;
+    }
+
+
+
+
+
+
 
     //先找到该地址变量的位置，在写
     public int write(String add,int size,int subscript){
@@ -75,7 +117,7 @@ public class Linked {
         page.write(add);
         Map map = page.getMap();
         Integer[] o = (Integer[]) map.get(add);
-        System.out.println("写 "+ add + "第 " + o[2] +"次");
+        //System.out.println("写 "+ add + "第 " + o[2] +"次");
         return 0;
     }
     //先找到该地址变量的位置，再读
@@ -89,7 +131,7 @@ public class Linked {
         page.read(add);
         Map map = page.getMap();
         Integer[] o = (Integer[]) map.get(add);
-        System.out.println("读 "+ add + "第 " + o[2] +"次");
+        //System.out.println("读 "+ add + "第 " + o[2] +"次");
         return 0;
     }
 
