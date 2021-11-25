@@ -68,11 +68,11 @@ public class Linked {
      * 把A链表中的冷页面迁移到B链表中
      * @param linkedB
      */
-    public Boolean movePageLinKedAtoB(String name1,String name2,Linked linkedB,Boolean bool){
+    public int movePageLinKedAtoB(String name1,String name2,Linked linkedB,Boolean bool){
 
         int count = 0;
         if (linkedB == null) {
-            return false;
+            return 0;
         }
         Node cur = this.head;
 
@@ -81,29 +81,37 @@ public class Linked {
             Page page = cur.t;
             if (page.getFlag() == bool){
                 linkedB.addLast(page);
+                page.x = 0;
                 this.remove(page);
                 count++;
             }
             cur = cur.next;
         }
-        /*while (this != null){
-
-            if (page.getFlag() == bool){
-                linkedB.addLast(page);
-                this.remove(page);
-                count++;
-            }
-            cur = cur.next;
-
-        }*/
 
         System.out.println(name1 + " 向 " + name2 + "迁移  " + count + "  个页面");
-        return true;
+        return count;
     }
 
 
-
-
+    /**
+     * SLC的第三条链表在周期结束时，先把访问了的热页面迁移，然后剩下的是没有被访问的
+     * 当x大于等于8时，就把该页面迁移到MLC中
+     */
+    public int changeX(Linked linkedMLC){
+        int count = 0;
+        Node cur = this.head;
+        while (cur != null){
+            Page page = cur.t;
+            page.x++;
+            if (page.x >= 10){
+                linkedMLC.addLast(page);
+                this.remove(page);
+                count++;
+            }
+            cur =cur.next;
+        }
+        return count;
+    }
 
 
 

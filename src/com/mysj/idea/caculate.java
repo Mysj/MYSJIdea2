@@ -5,9 +5,14 @@ public class caculate {
         double x = 26098900;
         double slc = 15188597.5983791;
         double mlc = 9852893.2151257;
+        double totalS = 15681260000.0;
+        double ns = 41.04;
+        double read = 37129540;
+        double write = 18982781;
         //System.out.println((slc-x)/slc);
         //System.out.println((mlc-x)/mlc);
-        System.out.println(slc/x);
-        System.out.println(x/slc);
+        //System.out.println(slc/x);
+        //System.out.println(x/slc);
+        System.out.println(totalS - (read + write)*ns);
     }
 }

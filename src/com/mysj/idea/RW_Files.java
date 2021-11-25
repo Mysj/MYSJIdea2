@@ -9,6 +9,7 @@ import java.io.FileReader;
 /**
  * 根据trace
  * 计算基准时间
+ * 和本实验没有关系
  */
 public class RW_Files {
     /**

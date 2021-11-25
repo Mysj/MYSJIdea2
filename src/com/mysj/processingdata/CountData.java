@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class CountData {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\实验\\数据MemoryAccess\\dijkstra\\dijkstra_large_1.txt";
+        String filepath = "D:\\实验\\数据MemoryAccess\\patricia\\patricia.txt";
         //String filepath = "D:\\实验\\数据MemoryAccess\\qsort\\新建文本文档.txt";
-        String filepath2 = "D:\\实验\\数据MemoryAccess\\dijkstra\\Count_dijkstra_large_1.txt";
+        String filepath2 = "D:\\实验\\数据MemoryAccess\\patricia\\Count_patricia.txt";
 
         File file = new File(filepath);
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));

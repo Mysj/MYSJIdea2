@@ -28,10 +28,14 @@ public class Test {
         linked[0] = new Linked();
         linked[1] = new Linked();
         linked[2] = new Linked();
-        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\qsort\\qsort_large.txt");
+        Linked[] linkedMLC =new Linked[3];
+        linkedMLC[0] = new Linked();
+        linkedMLC[1] = new Linked();
+        linkedMLC[2] = new Linked();
+        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\patricia\\patricia.txt");
 
         //开始运行
-        RWLinkedPage(linked,bufferedReader);
+        RWLinkedPage(linked,linkedMLC,bufferedReader);
 
         System.out.println(linked[0].getSize());
         linked[0].getPageSize();

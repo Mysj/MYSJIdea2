@@ -9,6 +9,7 @@ import java.util.Map;
  * 存放变量，变量的总大小不能超过4KB
  */
 public class Page {
+    public int x = 0;//当该页面在第三条SLC链表中时，就会记录，一个周期内没有被访问就x++
     private int size = 0;//记录本页面的大小
     private long accessNumber = 0;//记录本页面的访问次数
     //private int[] variable;//存放的变量，这里就是地址
