@@ -9,6 +9,8 @@ import java.util.Map;
  * 存放变量，变量的总大小不能超过4KB
  */
 public class Page {
+    static int total_NUMBER = 0;
+    int NUMBER = 0;
     public int x = 0;//当该页面在第三条SLC链表中时，就会记录，一个周期内没有被访问就x++
     private int size = 0;//记录本页面的大小
     private long accessNumber = 0;//记录本页面的访问次数
@@ -18,6 +20,15 @@ public class Page {
 
     private Boolean isSlc = true;//页面默认为SLC
 
+    public Page(){
+        total_NUMBER++;
+        NUMBER = total_NUMBER;
+        //System.out.println("当前分配页面编号：" + NUMBER);
+    }
+
+    public int getNUMBER(){
+        return NUMBER;
+    }
     public void setIsSlc(){
         this.isSlc = false;//说明是MLC
     }

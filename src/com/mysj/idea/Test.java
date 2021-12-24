@@ -2,10 +2,12 @@ package com.mysj.idea;
 
 import com.mysj.idea.tool.RWLinkedPageTool;
 
+
 import java.io.BufferedReader;
 
 import static com.mysj.idea.tool.RWFileTool.ReadFile;
 import static com.mysj.idea.tool.RWLinkedPageTool.RWLinkedPage;
+import static com.mysj.idea.tool.RWLinkedPageTool.checkOnlyOne;
 
 /**
  * 目前实现：单个链表的存放地址变量
@@ -37,8 +39,15 @@ public class Test {
         //开始运行
         RWLinkedPage(linked,linkedMLC,bufferedReader);
 
-        System.out.println(linked[0].getSize());
-        linked[0].getPageSize();
+        bufferedReader.close();
+        /*BufferedReader bufferedReader2 = ReadFile("D:\\实验\\数据MemoryAccess\\fft\\fft_address.txt");
+        System.out.println(checkOnlyOne(linked, linkedMLC, bufferedReader2));*/
+
+        /*System.out.println(linked[0].getSize());
+        linked[0].getPageSize();*/
+
+
+        //写一个LRU算法来得到基准的消耗:1、DRAM的LRU。2、全SLC、全MLC的LRU
 
     }
 }

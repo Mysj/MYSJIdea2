@@ -1,8 +1,6 @@
 package com.mysj.idea;
 
-import java.lang.reflect.Array;
 import java.util.Map;
-import java.util.SplittableRandom;
 
 public class Linked {
 
@@ -24,7 +22,6 @@ public class Linked {
         this.head = null;
         this.size = 0;
     }
-
     //获取链表元素的个数
     public int getSize(){
         return this.size;
@@ -45,7 +42,6 @@ public class Linked {
     public void addLast(Page t){
         this.add(t, this.size);
     }
-
     public boolean add(String add,int size){
         Node cur = this.head;
         int i = 1;
@@ -55,6 +51,9 @@ public class Linked {
                 if (!b){
                     System.out.println("编号 "+i+" 存放失败！！！");
                 }
+                if("0xb8fc8".equals(add)){
+                    System.out.println("add:" + cur.t.getNUMBER());
+                }
                 return true;
             }
             cur =cur.next;
@@ -63,20 +62,40 @@ public class Linked {
         return false;
     }
 
+    /**
+     * 打印当前链表中的热页面
+     * @param linked
+     */
+    public static void printHotPage(Linked linked){
+        if (linked == null) {
+            System.out.println("this NULL");
+            return;
+        }
+        Node cur = linked.head;
+        for (long i = 0;i < linked.getSize();i++){
+            Page page = cur.t;
+            if (page.getFlag() == true) System.out.println("写第：" + page.getNUMBER() + " 页面");
+            cur = cur.next;
+        }
+        System.out.println("-----printHotPage-----");
+    }
 
     /**
      * 把A链表中的冷页面迁移到B链表中
-     * @param linkedB
+     * flag == 0,说明没有SLC->MLC或者MLC->SLC
+     * 1 == SLC->MLC;2 == MLC->SLC
+     * 不同类型页面迁移时，需要调用页面迁移算法*****************
+     * @param flag 用于判断是否进行了不同类型之间的页面迁移
+     * @param bool 用于判断是迁移热页面还是迁移冷页面 false迁移冷页面、true迁移热页面
+     * @param linkedB A->B页面
      */
-    public int movePageLinKedAtoB(String name1,String name2,Linked linkedB,Boolean bool){
+    public int movePageLinKedAtoB(int flag,String name1,String name2,Linked linkedB,Boolean bool){
 
         int count = 0;
         if (linkedB == null) {
             return 0;
         }
         Node cur = this.head;
-
-
         for (long i = 0;i < this.getSize();i++){
             Page page = cur.t;
             if (page.getFlag() == bool){
@@ -87,7 +106,6 @@ public class Linked {
             }
             cur = cur.next;
         }
-
         System.out.println(name1 + " 向 " + name2 + "迁移  " + count + "  个页面");
         return count;
     }
@@ -96,6 +114,8 @@ public class Linked {
     /**
      * SLC的第三条链表在周期结束时，先把访问了的热页面迁移，然后剩下的是没有被访问的
      * 当x大于等于8时，就把该页面迁移到MLC中
+     * ----------------------------------------------？？？？？
+     * 这里还需要进行判断MLC页面是否足够，需要调用页面转换算法
      */
     public int changeX(Linked linkedMLC){
         int count = 0;
@@ -113,12 +133,10 @@ public class Linked {
         return count;
     }
 
-
-
     //先找到该地址变量的位置，在写
     public int write(String add,int size,int subscript){
         Node cur = this.head;
-        for (int i = 0;i < subscript;i++){
+        for (int i = 0;i < subscript ;i++){
             cur = cur.next;
         }
         Page page = cur.t;
@@ -131,7 +149,7 @@ public class Linked {
     //先找到该地址变量的位置，再读
     public int read(String add,int size,int subscript){
         Node cur = this.head;
-        for (int i = 0;i < subscript;i++){
+        for (int i = 0;i < subscript ;i++){
             cur = cur.next;
         }
         cur.t.read(add);
@@ -227,15 +245,16 @@ public class Linked {
         Node cur = this.head;
         while(cur != null){
             Page page = cur.t;
-
+            i++;
             if(page.getMap().containsKey(addr)){
                 return i;
             } else {
                 cur = cur.next;
-                i++;
+                //i++;
             }
+            //i++;
         }
-        return 0;
+        return 0;//没有找到，返回
     }
 
     /**
