@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class CountData {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\实验\\数据MemoryAccess\\basicmath\\basicmath222.txt";
+        String filepath = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\gsm_toast.txt";
         //String filepath = "D:\\实验\\数据MemoryAccess\\qsort\\新建文本文档.txt";
-        String filepath2 = "D:\\实验\\数据MemoryAccess\\basicmath\\Count_basicmath222.txt";
+        String filepath2 = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\Count_gsm_toast.txt";
 
         File file = new File(filepath);
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
@@ -31,8 +31,8 @@ public class CountData {
             //TODO: write your business
             //分为 读写、大小、地址 0 1 2
             String[] s = line.split(" ");
-            System.out.println(line);
-            System.out.println("==============");
+            //System.out.println(line);
+            //System.out.println("==============");
             if (map.get(s[2]) == null){
                 Integer[] data = new Integer[4];
                 data[0] = Integer.parseInt(s[1]);
@@ -59,7 +59,7 @@ public class CountData {
 
         }
 
-        System.out.println("----------------------------------");
+        //System.out.println("----------------------------------");
         //遍历map
         for(String addr : map.keySet()){
             String str2 = addr;

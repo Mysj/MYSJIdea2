@@ -1,5 +1,6 @@
 package com.mysj.idea;
 
+import com.mysj.idea.tool.MyLruTool;
 import com.mysj.idea.tool.RWLinkedPageTool;
 
 
@@ -18,14 +19,7 @@ import static com.mysj.idea.tool.RWLinkedPageTool.checkOnlyOne;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
-        /*Linked linked = new Linked();
-        for(int i = 0; i < 10; i++){
-            linked.addFirst(new Page());
-            System.out.println(linked);
-        }
-        System.out.println(linked.getSize());*/
-        //使用RWLinkedPageTool工具来进行操作
-        //RWLinkedPageTool rwLinkedPageTool = new RWLinkedPageTool();
+
         Linked[] linked =new Linked[3];
         linked[0] = new Linked();
         linked[1] = new Linked();
@@ -34,20 +28,16 @@ public class Test {
         linkedMLC[0] = new Linked();
         linkedMLC[1] = new Linked();
         linkedMLC[2] = new Linked();
-        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\patricia\\patricia.txt");
+        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\basicmath\\basicmath222.txt");
+        BufferedReader bufferedReader2 = ReadFile("D:\\实验\\数据MemoryAccess\\basicmath\\basicmath222.txt");
 
         //开始运行
         RWLinkedPage(linked,linkedMLC,bufferedReader);
-
         bufferedReader.close();
-        /*BufferedReader bufferedReader2 = ReadFile("D:\\实验\\数据MemoryAccess\\fft\\fft_address.txt");
-        System.out.println(checkOnlyOne(linked, linkedMLC, bufferedReader2));*/
-
-        /*System.out.println(linked[0].getSize());
-        linked[0].getPageSize();*/
-
 
         //写一个LRU算法来得到基准的消耗:1、DRAM的LRU。2、全SLC、全MLC的LRU
+        MyLruTool.MyLRU(new Linked(),bufferedReader2);
 
+        bufferedReader2.close();
     }
 }

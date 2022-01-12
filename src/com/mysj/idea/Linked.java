@@ -51,9 +51,6 @@ public class Linked {
                 if (!b){
                     System.out.println("编号 "+i+" 存放失败！！！");
                 }
-                if("0xb8fc8".equals(add)){
-                    System.out.println("add:" + cur.t.getNUMBER());
-                }
                 return true;
             }
             cur =cur.next;
@@ -141,8 +138,8 @@ public class Linked {
         }
         Page page = cur.t;
         page.write(add);
-        Map map = page.getMap();
-        Integer[] o = (Integer[]) map.get(add);
+        //Map map = page.getMap();
+        //Integer[] o = (Integer[]) map.get(add);
         //System.out.println("写 "+ add + "第 " + o[2] +"次");
         return 0;
     }
@@ -152,18 +149,66 @@ public class Linked {
         for (int i = 0;i < subscript ;i++){
             cur = cur.next;
         }
-        cur.t.read(add);
+        //cur.t.read(add);
         Page page = cur.t;
         page.read(add);
-        Map map = page.getMap();
-        Integer[] o = (Integer[]) map.get(add);
+        //Map map = page.getMap();
+        //Integer[] o = (Integer[]) map.get(add);
         //System.out.println("读 "+ add + "第 " + o[2] +"次");
         return 0;
     }
 
+    //先找到该地址变量的位置，在写，写完后把页面迁移到链表头部   这里迁移到尾部
+    public long writeLRU(String add,int size,int subscript){
+        Node cur = this.head;
+        Node cur2 = this.head;
+        long now1 = System.currentTimeMillis();
+        for (int i = 0;i < subscript ;i++){
+            cur2 = cur;
+            cur = cur.next;
+        }
+
+        Page page = cur.t;
+        page.write(add);
+
+        if (cur == cur2){
+            return 0;
+        }
+
+        cur2.next = cur.next;//删除该页面
+        this.size--;
+        this.addLast(page);//插入链表头部
+        long now2 = System.currentTimeMillis();
+        return now2 - now1;
+    }
+    //先找到该地址变量的位置，再读，最后把页面迁移到链表头部
+    public long readLRU(String add,int size,int subscript){
+        Node cur = this.head;
+        Node cur2 = this.head;
+        long now1 = System.currentTimeMillis();
+        for (int i = 0;i < subscript ;i++){
+            cur2 = cur;
+            cur = cur.next;
+        }
+
+        Page page = cur.t;
+        page.read(add);
+        if (cur == cur2){
+            return 0;
+        }
+
+        cur2.next = cur.next;//删除该页面
+        this.size--;
+        this.addLast(page);//插入链表头部
+        long now2 = System.currentTimeMillis();
+        return now2 - now1;
+    }
+
+
+
     //向链表中间插入元素
     public void add(Page t,int index){      
-        if (index <0 || index >size){
+        if (index < 0 || index > size){
             throw new IllegalArgumentException("index is error");
         }
         if (index == 0){
@@ -172,7 +217,7 @@ public class Linked {
         }
         Node preNode = this.head;
         //找到要插入节点的前一个节点
-        for(int i = 0; i < index-1; i++){
+        for(int i = 0; i < index - 1; i++){
             preNode = preNode.next;
         }
         Node node = new Node(t);
@@ -246,6 +291,26 @@ public class Linked {
         while(cur != null){
             Page page = cur.t;
             i++;
+
+            if(page.getMap().containsKey(addr)){
+                //System.out.println(i);
+                return i;
+            } else {
+                cur = cur.next;
+                //i++;
+            }
+            //i++;
+        }
+        return 0;//没有找到，返回
+    }
+
+
+    public int containsLRU(String addr){
+        int i = 0;
+        Node cur = this.head;
+        while(cur != null){
+            Page page = cur.t;
+            i++;
             if(page.getMap().containsKey(addr)){
                 return i;
             } else {
@@ -256,6 +321,10 @@ public class Linked {
         }
         return 0;//没有找到，返回
     }
+
+
+
+
 
     /**
      * 一个周期结束、或者一个周期新开始，会将是否被访问重置

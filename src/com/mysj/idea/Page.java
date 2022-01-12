@@ -67,6 +67,7 @@ public class Page {
             map.put(add, new Integer[]{size,0,1});
             this.size += size;
             accessNumber++;
+            flag = true;//第一次写入页面，就会变成热数据
             return true;
 
         }else {

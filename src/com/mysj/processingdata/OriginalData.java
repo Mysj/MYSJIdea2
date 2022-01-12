@@ -7,8 +7,8 @@ import static com.mysj.idea.tool.RWFileTool.ReadFile;
 
 public class OriginalData {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\share\\basicmath.txt";
-        String filepath2 = "D:\\实验\\数据MemoryAccess\\basicmath\\basicmath333.txt";
+        String filepath = "D:\\share\\gsm_toast.txt";
+        String filepath2 = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\gsm_toast.txt";
 
         File file = new File(filepath);
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
@@ -39,14 +39,18 @@ public class OriginalData {
                 break;
             }
         }*/
-        System.out.println(str);
+
+
+        //System.out.println(str);
+
+
         while((line = reader.readLine()) != null ){
             //TODO: write your business
 
             String[] s = line.split(" ");
             //String[] s = "      0: global: 00000000  73 69 7a 65 20 6e 6f 74  20 74 68 65 20 65 78 70   size not the exp".split(" ");
-            System.out.println(line);
-            System.out.println("==============");
+            //System.out.println(line);
+            //System.out.println("==============");
             for (int i = 0; i < s.length - 4; i++) {
                 if ("Write".equals(s[i])){
                     str += "Write ";

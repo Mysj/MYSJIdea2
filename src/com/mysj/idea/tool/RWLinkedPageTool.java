@@ -76,6 +76,10 @@ public class RWLinkedPageTool {
                     }
                     WriteSLC += size_j;
 
+                    //第一次把该变量写入页面时，如果是读操作，就加上
+                    if ("Read".equals(s[0])){
+                        ReadSLC += size_j;
+                    }
                 }else {
                     if (subscript1 != Xia_Biao){     //3.在链表中找到该地址
                         if ("Write".equals(s[0])){
@@ -214,6 +218,7 @@ public class RWLinkedPageTool {
 
         }
 
+        System.out.println("============MyRW==================");
         System.out.println("countSLCtoMLC = " + countSLCtoMLC);
         System.out.println("countMLCtoSLC = " + countMLCtoSLC);
         System.out.println("total = " + total);
@@ -224,6 +229,7 @@ public class RWLinkedPageTool {
         double totalS = ReadSLC*1.55 + WriteSLC*8.38 + ReadMLC*2.75 + WriteMLC*18.565 +
                 countSLCtoMLC*(1.55 + 18.565)*4*1024*8 + countMLCtoSLC*(2.75 + 8.38)*4*1024*8;
         System.out.println("总成本 = "+ totalS);
+        System.out.println("===================================");
     }
 
     public static boolean checkOnlyOne(Linked[] linked,Linked[] linkedMLC,BufferedReader bufferedReader)throws Exception{
