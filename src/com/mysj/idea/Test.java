@@ -28,8 +28,8 @@ public class Test {
         linkedMLC[0] = new Linked();
         linkedMLC[1] = new Linked();
         linkedMLC[2] = new Linked();
-        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\basicmath\\basicmath222.txt");
-        BufferedReader bufferedReader2 = ReadFile("D:\\实验\\数据MemoryAccess\\basicmath\\basicmath222.txt");
+        BufferedReader bufferedReader = ReadFile("D:\\实验\\数据MemoryAccess\\jpeg\\djpeg\\djpeg.txt");
+        BufferedReader bufferedReader2 = ReadFile("D:\\实验\\数据MemoryAccess\\jpeg\\djpeg\\djpeg.txt");
 
         //开始运行
         RWLinkedPage(linked,linkedMLC,bufferedReader);

@@ -228,7 +228,7 @@ public class RWLinkedPageTool {
         System.out.println("WriteMLC = " + WriteMLC);
         double totalS = ReadSLC*1.55 + WriteSLC*8.38 + ReadMLC*2.75 + WriteMLC*18.565 +
                 countSLCtoMLC*(1.55 + 18.565)*4*1024*8 + countMLCtoSLC*(2.75 + 8.38)*4*1024*8;
-        System.out.println("总成本 = "+ totalS);
+        System.out.println("时间总成本 = "+ totalS);
         System.out.println("===================================");
     }
 

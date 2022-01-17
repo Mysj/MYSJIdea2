@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class CountData {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\gsm_toast.txt";
+        String filepath = "D:\\实验\\数据MemoryAccess\\jpeg\\cjpeg\\cjpeg.txt";
         //String filepath = "D:\\实验\\数据MemoryAccess\\qsort\\新建文本文档.txt";
-        String filepath2 = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\Count_gsm_toast.txt";
+        String filepath2 = "D:\\实验\\数据MemoryAccess\\jpeg\\cjpeg\\Count_cjpeg.txt";
 
         File file = new File(filepath);
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
@@ -33,6 +33,10 @@ public class CountData {
             String[] s = line.split(" ");
             //System.out.println(line);
             //System.out.println("==============");
+            System.out.println("---------------------------");
+            if (s.length != 3) continue;
+            System.out.println(s[2]);
+
             if (map.get(s[2]) == null){
                 Integer[] data = new Integer[4];
                 data[0] = Integer.parseInt(s[1]);

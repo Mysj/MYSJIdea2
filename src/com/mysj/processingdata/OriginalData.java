@@ -7,8 +7,8 @@ import static com.mysj.idea.tool.RWFileTool.ReadFile;
 
 public class OriginalData {
     public static void main(String[] args) throws Exception {
-        String filepath = "D:\\share\\gsm_toast.txt";
-        String filepath2 = "D:\\实验\\数据MemoryAccess\\gsm\\toast\\gsm_toast.txt";
+        String filepath = "D:\\share\\djpeg.txt";
+        String filepath2 = "D:\\实验\\数据MemoryAccess\\jpeg\\djpeg\\djpeg.txt";
 
         File file = new File(filepath);
         BufferedInputStream fis = new BufferedInputStream(new FileInputStream(file));
